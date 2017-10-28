@@ -10,4 +10,4 @@ ifeq ($(OS), Darwin)
 endif
 
 all:	
-	g++ main.cpp -o modelviewer $(FLAGS)
+	g++ main.cpp JointLoader.cpp -o motionviewer $(FLAGS)

@@ -1,0 +1,46 @@
+# depslib dependency file v1.0
+1509216973 source:/home/jakaria/OpenglAssignment2/main.cpp
+	<GL/glew.h>
+	<GL/freeglut.h>
+	"JointLoader.h"
+	<fstream>
+	<iostream>
+	<string.h>
+	<vector>
+	<sstream>
+	<iomanip>
+	<algorithm>
+
+1508127749 source:/home/jakaria/OpenglAssignment2/SkeletonLoader.cpp
+	<stdio.h>
+	<string>
+	<fstream>
+	"SkeletonLoader.h"
+	<eigen3/Eigen/Dense>
+
+1508129019 /home/jakaria/OpenglAssignment2/SkeletonLoader.h
+	<vector>
+	<cstdlib>
+	<eigen3/Eigen/Dense>
+	<iostream>
+
+1509216980 source:/home/jakaria/OpenglAssignment2/JointLoader.cpp
+	"JointLoader.h"
+	<fstream>
+	<iostream>
+	<string>
+	<vector>
+	<sstream>
+	<iomanip>
+	<algorithm>
+
+1509217134 /home/jakaria/OpenglAssignment2/JointLoader.h
+	<vector>
+	<string>
+	<cstdio>
+	<cstring>
+	<cstdlib>
+	<sstream>
+	<fstream>
+	<iostream>
+
