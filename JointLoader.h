@@ -10,13 +10,15 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <glm/glm.hpp>
 
-#define X_POSITION1 0
-#define Y_POSITION1 1
-#define Z_POSITION1 2
-#define X_ROTATION1 3
-#define Y_ROTATION1 4
-#define Z_ROTATION1 5
+
+#define X_POSITION 0
+#define Y_POSITION 1
+#define Z_POSITION 2
+#define X_ROTATION 3
+#define Y_ROTATION 4
+#define Z_ROTATION 5
 
 class JointLoader
 {
@@ -28,36 +30,28 @@ public:
 
     double offsetX, offsetY , offsetZ;
 
-    // CHANNEL TYPES
-    typedef enum
-    {
-        X_POSITION = 0,
-        Y_POSITION,
-        Z_POSITION,
-        X_ROTATION,
-        Y_ROTATION,
-        Z_ROTATION
-    } ChannelType;
 
-    // ChannelVector
-    std::vector<ChannelType> channels;
-    std::vector<int> channels1;
+    std::vector<int> channels;
 
     // channels
     void Channels(std::ifstream& infile);
 
 
-    std::vector<JointLoader> childjoints;
     std::string name;
 
     bool is_root;
     bool is_end;
 
+    JointLoader *parent;
 
-    JointLoader(bool root = false, bool end = false)
+    std::vector<JointLoader *> childjoints;
+
+
+    JointLoader(bool root = false, bool end = false, JointLoader *parent=0)
     {
         is_root=root;
         is_end=end;
+        this->parent = parent;
     }
 
 
@@ -90,6 +84,22 @@ public:
 
 
     void outp(std::ofstream& outfile,const char *offset = "\0" );
+
+    const std::vector<JointLoader *> & get_children()
+    {
+        return childjoints;
+    }
+
+    bool has_children()
+    {
+        return childjoints.size() > 0 ;
+    }
+
+    const JointLoader * get_parent()
+    {
+        return parent;
+    }
+
 
 
 };

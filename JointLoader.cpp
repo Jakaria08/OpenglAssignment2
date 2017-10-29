@@ -34,14 +34,14 @@ bool JointLoader::load(ifstream& infile)
 
          if (value1 == "JOINT")
          {
-             JointLoader childJoint;
-             childJoint.load(infile);
+             JointLoader *childJoint = new JointLoader(false,false,this);
+             childJoint->load(infile);
              this->childjoints.push_back(childJoint);
          }
          else if (value1 == "End")
          {
-             JointLoader childJoint(false,true);
-             childJoint.load(infile);
+             JointLoader *childJoint = new JointLoader(false,true,this);
+             childJoint->load(infile);
              this->childjoints.push_back(childJoint);
          }
          else if ( value1 == "OFFSET")
@@ -88,33 +88,33 @@ void JointLoader::Channels(ifstream& infile)
 
         if(type == "Xposition") {
 
-            channels1.push_back(X_POSITION1);
+            channels.push_back(X_POSITION);
             }
 
         else if(type == "Yposition"){
 
-            channels1.push_back(Y_POSITION1);
+            channels.push_back(Y_POSITION);
 
             }
 
         else if(type == "Zposition"){
 
-            channels1.push_back(Z_POSITION1);
+            channels.push_back(Z_POSITION);
             }
 
         else if(type == "Xrotation"){
 
-            channels1.push_back(X_ROTATION1);
+            channels.push_back(X_ROTATION);
             }
 
         else if(type == "Yrotation"){
 
-            channels1.push_back(Y_ROTATION1);
+            channels.push_back(Y_ROTATION);
             }
 
         else if(type == "Zrotation"){
 
-            channels1.push_back(Z_ROTATION1);
+            channels.push_back(Z_ROTATION);
             }
 
         else
@@ -152,35 +152,35 @@ void JointLoader::outp(ofstream& outfile, const char *offset )
 
     outfile << spacing << "OFFSET "<< this->offsetX <<" "<<this->offsetY <<" "<<this->offsetZ << "\n";
 
-    if ( channels1.size() > 0 )
+    if ( channels.size() > 0 )
     {
 
-        outfile << spacing << "CHANNELS " << channels1.size() <<" " ;
+        outfile << spacing << "CHANNELS " << channels.size() <<" " ;
 
         //vector<int>::iterator it;
 
-        for(int i=0; i<channels1.size(); i++ )
+        for(int i=0; i<channels.size(); i++ )
         {
 
-            switch(channels1[i])
+            switch(channels[i])
             {
 
-            case X_POSITION1:
+            case X_POSITION:
                 outfile << "Xposition ";
                 break;
-            case Y_POSITION1:
+            case Y_POSITION:
                 outfile << "Yposition ";
                 break;
-            case Z_POSITION1:
+            case Z_POSITION:
                 outfile << "Zposition ";
                 break;
-            case X_ROTATION1:
+            case X_ROTATION:
                 outfile << "Xrotation ";
                 break;
-            case Y_ROTATION1:
+            case Y_ROTATION:
                 outfile << "Yrotation ";
                 break;
-            case Z_ROTATION1:
+            case Z_ROTATION:
                outfile << "Zrotation ";
                 break;
             }
@@ -191,7 +191,7 @@ void JointLoader::outp(ofstream& outfile, const char *offset )
 
     for(int i = 0; i<childjoints.size(); i++)
     {
-        childjoints[i].outp(outfile,spacing);
+        childjoints[i]->outp(outfile,spacing);
     }
     outfile << offset << "}" << "\n";
 
