@@ -16,7 +16,8 @@ void keyInput(unsigned char, int, int);
 int readFile(char* object);
 void OutputFile();
 
-JointLoader j = new JointLoader(true);
+JointLoader j = new JointLoader();
+
 
 int main(int argc, char *argv[])
 {
@@ -151,7 +152,7 @@ void OutputFile()
     ofstream Outputfile;
     Outputfile.open("output.bvh");
     Outputfile << "HIERARCHY" << "\n";
-    j.print(Outputfile);
+    j.outp(Outputfile);
     Outputfile.close();
     cout <<"Output File created !!";
 }

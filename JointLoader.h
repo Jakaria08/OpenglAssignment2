@@ -1,6 +1,7 @@
 #ifndef _JointLoader_h
 #define _JointLoader_h
 
+
 #include <vector>
 #include <string>
 #include <cstdio>
@@ -10,17 +11,22 @@
 #include <fstream>
 #include <iostream>
 
+#define X_POSITION1 0
+#define Y_POSITION1 1
+#define Z_POSITION1 2
+#define X_ROTATION1 3
+#define Y_ROTATION1 4
+#define Z_ROTATION1 5
+
 class JointLoader
 {
 
 public:
 
-// OFFSET structure
-    struct offset
-    {
-        double x, y , z;
-    };
-    offset o;
+// OFFSET
+
+
+    double offsetX, offsetY , offsetZ;
 
     // CHANNEL TYPES
     typedef enum
@@ -35,22 +41,23 @@ public:
 
     // ChannelVector
     std::vector<ChannelType> channels;
+    std::vector<int> channels1;
 
     // channels
-    void read_channels(std::ifstream& infile);
+    void Channels(std::ifstream& infile);
 
 
     std::vector<JointLoader> childjoints;
     std::string name;
 
-    bool is_root = false;
-    bool is_end = true;
+    bool is_root;
+    bool is_end;
 
-    JointLoader(/*bool root = false, bool end = false*/)
+
+    JointLoader(bool root = false, bool end = false)
     {
-        //is_root=root;
-        //is_end=end;
-        //this->o.x = this->o.y = this->o.z = 0;
+        is_root=root;
+        is_end=end;
     }
 
 
@@ -81,15 +88,8 @@ public:
     }
 
 
-    void set_offset(const double x, const double y, const double z)
-    {
-        this->o.x = x;
-        this->o.y = y;
-        this->o.z = z;
-    }
 
-
-    void print(std::ofstream& outfile,const char *offset = "\0" );
+    void outp(std::ofstream& outfile,const char *offset = "\0" );
 
 
 };
