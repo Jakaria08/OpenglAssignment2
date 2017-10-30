@@ -9,6 +9,7 @@
 
 
 
+
 using namespace std;
 
 bool JointLoader::load(ifstream& infile)
@@ -26,42 +27,42 @@ bool JointLoader::load(ifstream& infile)
     //cout<<value1<<"\n";
 
 
-     this->name = value1;
+    this->name = value1;
 
-     while (infile >> line1)
-     {
+    while (infile >> line1)
+    {
         value1 = delUnnecessary(line1);
 
-         if (value1 == "JOINT")
-         {
-             JointLoader *childJoint = new JointLoader(false,false,this);
-             childJoint->load(infile);
-             this->childjoints.push_back(childJoint);
-         }
-         else if (value1 == "End")
-         {
-             JointLoader *childJoint = new JointLoader(false,true,this);
-             childJoint->load(infile);
-             this->childjoints.push_back(childJoint);
-         }
-         else if ( value1 == "OFFSET")
-         {
-             double x,y,z;
-             infile >> x >> y >> z;
-             //cout<<x<<" "<<y<<" "<<z<<"\n";
-             this->offsetX = x;
-             this->offsetY = y;
-             this->offsetZ = z;
-         }
-         else if ( value1 == "CHANNELS")
-         {
+        if (value1 == "JOINT")
+        {
+            JointLoader *childJoint = new JointLoader(false,false,this);
+            childJoint->load(infile);
+            this->childjoints.push_back(childJoint);
+        }
+        else if (value1 == "End")
+        {
+            JointLoader *childJoint = new JointLoader(false,true,this);
+            childJoint->load(infile);
+            this->childjoints.push_back(childJoint);
+        }
+        else if ( value1 == "OFFSET")
+        {
+            double x,y,z;
+            infile >> x >> y >> z;
+            //cout<<x<<" "<<y<<" "<<z<<"\n";
+            this->offsetX = x;
+            this->offsetY = y;
+            this->offsetZ = z;
+        }
+        else if ( value1 == "CHANNELS")
+        {
 
-             Channels(infile);
+            Channels(infile);
 
-         }
-         else if (value1 == "}")
-             break;
-     }
+        }
+        else if (value1 == "}")
+            break;
+    }
 
 
 }
@@ -77,6 +78,7 @@ void JointLoader::Channels(ifstream& infile)
     cout<<num;
 
 
+
     for(int i = 0; i < num; i++ )
     {
 
@@ -86,36 +88,42 @@ void JointLoader::Channels(ifstream& infile)
 
         //cout << type;
 
-        if(type == "Xposition") {
+        if(type == "Xposition")
+        {
 
             channels.push_back(X_POSITION);
-            }
+        }
 
-        else if(type == "Yposition"){
+        else if(type == "Yposition")
+        {
 
             channels.push_back(Y_POSITION);
 
-            }
+        }
 
-        else if(type == "Zposition"){
+        else if(type == "Zposition")
+        {
 
             channels.push_back(Z_POSITION);
-            }
+        }
 
-        else if(type == "Xrotation"){
+        else if(type == "Xrotation")
+        {
 
             channels.push_back(X_ROTATION);
-            }
+        }
 
-        else if(type == "Yrotation"){
+        else if(type == "Yrotation")
+        {
 
             channels.push_back(Y_ROTATION);
-            }
+        }
 
-        else if(type == "Zrotation"){
+        else if(type == "Zrotation")
+        {
 
             channels.push_back(Z_ROTATION);
-            }
+        }
 
         else
         {
@@ -125,6 +133,26 @@ void JointLoader::Channels(ifstream& infile)
     }
 }
 
+
+int JointLoader::num_Channels()
+{
+
+    int num = 0;
+
+   // std::vector<Joint *>::iterator it;
+
+    //for( it = subjoints.begin(); it != subjoints.end() ; it++ )
+      //  num+=(*it)->num_Channels();
+    for(int i = 0; i<childjoints.size();i++){
+
+        num+= childjoints[i]->num_Channels();
+    }
+
+    num+=channels.size();
+
+    return num;
+
+}
 
 void JointLoader::outp(ofstream& outfile, const char *offset )
 {
@@ -140,7 +168,7 @@ void JointLoader::outp(ofstream& outfile, const char *offset )
     else if(is_end)
     {
         outfile << offset << "End Site" << "\n";
-        }
+    }
     else
     {
         outfile << offset << "JOINT "<< this->name << "\n";
@@ -181,7 +209,7 @@ void JointLoader::outp(ofstream& outfile, const char *offset )
                 outfile << "Yrotation ";
                 break;
             case Z_ROTATION:
-               outfile << "Zrotation ";
+                outfile << "Zrotation ";
                 break;
             }
         }
@@ -196,3 +224,4 @@ void JointLoader::outp(ofstream& outfile, const char *offset )
     outfile << offset << "}" << "\n";
 
 }
+

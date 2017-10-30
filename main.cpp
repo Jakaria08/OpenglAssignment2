@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include "MotionData.h"
 
 
 using namespace std;
@@ -23,8 +24,10 @@ void drawScene(void);
 void draw_lines(JointLoader *j, double x, double y, double z);
 
 
+
 JointLoader j(true);
 
+MotionData mod;
 camera cam;
 Vector3f initialPosition(0.0, 0.0, -50.0);
 
@@ -177,9 +180,21 @@ int readFile(char* object)
 
 
     }
-    else if ( value == "MOTION" )
+
+    cout<<value<<"\n";
+
+    file>>line;
+
+
+    value = j.delUnnecessary(line);
+
+
+
+    if ( value == "MOTION" )
     {
-        printf(" baki ache");
+       int i = j.num_Channels();
+       mod.total_frame_size = i;
+       mod.loadMotion(file);
     }
     else
     {
@@ -200,8 +215,11 @@ void OutputFile()
     cout<<"Creating Output File.....................";
     ofstream Outputfile;
     Outputfile.open("output.bvh");
+    Outputfile << fixed << setprecision(5);
     Outputfile << "HIERARCHY" << "\n";
     j.outp(Outputfile);
+    Outputfile << "MOTION" << "\n";
+    mod.OutputMotion(Outputfile);
     Outputfile.close();
     cout <<"Output File created !!";
 }
@@ -293,3 +311,6 @@ void draw_lines(JointLoader *j, double x, double y, double z)
 
     }
 }
+
+
+

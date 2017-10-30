@@ -37,6 +37,8 @@
 		</Compiler>
 		<Unit filename="JointLoader.cpp" />
 		<Unit filename="JointLoader.h" />
+		<Unit filename="MotionData.cpp" />
+		<Unit filename="MotionData.h" />
 		<Unit filename="camera.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

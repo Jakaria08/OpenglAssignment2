@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1509246141 source:/home/jakaria/OpenglAssignment2/main.cpp
+1509322831 source:/home/jakaria/OpenglAssignment2/main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
+	<glm/glm.hpp>
 	"JointLoader.h"
+	"camera.h"
 	<fstream>
 	<iostream>
 	<string.h>
@@ -10,6 +12,7 @@
 	<sstream>
 	<iomanip>
 	<algorithm>
+	"MotionData.h"
 
 1508127749 source:/home/jakaria/OpenglAssignment2/SkeletonLoader.cpp
 	<stdio.h>
@@ -24,7 +27,7 @@
 	<eigen3/Eigen/Dense>
 	<iostream>
 
-1509261431 source:/home/jakaria/OpenglAssignment2/JointLoader.cpp
+1509318460 source:/home/jakaria/OpenglAssignment2/JointLoader.cpp
 	"JointLoader.h"
 	<fstream>
 	<iostream>
@@ -34,14 +37,31 @@
 	<iomanip>
 	<algorithm>
 
-1509297002 /home/jakaria/OpenglAssignment2/JointLoader.h
+1509306394 /home/jakaria/OpenglAssignment2/JointLoader.h
 	<vector>
 	<string>
-	<cstdio>
 	<cstring>
-	<cstdlib>
 	<sstream>
 	<fstream>
 	<iostream>
 	<glm/glm.hpp>
+
+1509258681 /home/jakaria/OpenglAssignment2/camera.h
+	<cmath>
+	<vector>
+	<eigen3/Eigen/Dense>
+
+1509323132 source:/home/jakaria/OpenglAssignment2/MotionData.cpp
+	"MotionData.h"
+	<fstream>
+	<iostream>
+	<string.h>
+	<vector>
+	<sstream>
+	<iomanip>
+	<algorithm>
+
+1509319404 /home/jakaria/OpenglAssignment2/MotionData.h
+	<vector>
+	<iostream>
 

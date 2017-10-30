@@ -4,13 +4,12 @@
 
 #include <vector>
 #include <string>
-#include <cstdio>
 #include <cstring>
-#include <cstdlib>
 #include <sstream>
 #include <fstream>
 #include <iostream>
 #include <glm/glm.hpp>
+
 
 
 #define X_POSITION 0
@@ -19,6 +18,9 @@
 #define X_ROTATION 3
 #define Y_ROTATION 4
 #define Z_ROTATION 5
+
+
+
 
 class JointLoader
 {
@@ -31,10 +33,13 @@ public:
     double offsetX, offsetY , offsetZ;
 
 
+
+
     std::vector<int> channels;
 
     // channels
     void Channels(std::ifstream& infile);
+    int num_Channels();
 
 
     std::string name;
